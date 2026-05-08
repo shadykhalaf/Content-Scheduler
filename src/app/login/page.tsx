@@ -2,7 +2,7 @@
 
 import { createClient } from "@/utils/supabase/client";
 import { motion } from "framer-motion";
-import { Facebook, Linkedin, Video } from "lucide-react";
+import { Video } from "lucide-react";
 import { useState } from "react";
 
 // TikTok Icon SVG
@@ -14,6 +14,18 @@ const TikTokIcon = ({ className }: { className?: string }) => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.01.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.96-.65 3.84-1.85 5.3-1.15 1.4-2.73 2.3-4.5 2.6-1.77.3-3.64.05-5.2-.77-1.57-.83-2.8-2.14-3.44-3.74-.63-1.6-.7-3.4-.18-5.06.52-1.65 1.6-3.05 3.1-3.9 1.45-.82 3.16-1.1 4.8-.82V13.4c-1.4-.1-2.8.2-4.04.85-.9.46-1.66 1.17-2.16 2.05-.5.88-.73 1.9-.66 2.92.08 1.02.48 1.97 1.13 2.74.65.77 1.5 1.3 2.45 1.55.96.25 1.98.17 2.87-.22.9-.4 1.63-1.07 2.1-1.92.46-.86.7-1.85.67-2.86V.02h4.04z" />
+  </svg>
+);
+
+const FacebookIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+  </svg>
+);
+
+const LinkedInIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
   </svg>
 );
 
@@ -41,7 +53,7 @@ export default function LoginPage() {
     {
       id: "facebook",
       name: "Facebook",
-      icon: <Facebook className="w-5 h-5" />,
+      icon: <FacebookIcon className="w-5 h-5" />,
       color: "hover:bg-[#1877F2] hover:border-[#1877F2]",
     },
     {
@@ -59,7 +71,7 @@ export default function LoginPage() {
     {
       id: "linkedin_oidc",
       name: "LinkedIn",
-      icon: <Linkedin className="w-5 h-5" />,
+      icon: <LinkedInIcon className="w-5 h-5" />,
       color: "hover:bg-[#0A66C2] hover:border-[#0A66C2]",
     },
   ];
