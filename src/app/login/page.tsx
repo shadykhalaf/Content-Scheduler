@@ -33,11 +33,11 @@ export default function LoginPage() {
   const [loadingProvider, setLoadingProvider] = useState<string | null>(null);
   const supabase = createClient();
 
-  const handleOAuthLogin = async (provider: "facebook" | "tiktok" | "linkedin_oidc" | "instagram") => {
+  const handleOAuthLogin = async (provider: "facebook" | "linkedin_oidc") => {
     setLoadingProvider(provider);
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider,
+        provider: provider as any,
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
         },
@@ -56,18 +56,7 @@ export default function LoginPage() {
       icon: <FacebookIcon className="w-5 h-5" />,
       color: "hover:bg-[#1877F2] hover:border-[#1877F2]",
     },
-    {
-      id: "instagram",
-      name: "Instagram",
-      icon: <Video className="w-5 h-5" />, // Placeholder for Instagram
-      color: "hover:bg-[#E4405F] hover:border-[#E4405F]",
-    },
-    {
-      id: "tiktok",
-      name: "TikTok",
-      icon: <TikTokIcon className="w-5 h-5" />,
-      color: "hover:bg-[#000000] hover:border-[#000000] dark:hover:bg-white dark:hover:text-black",
-    },
+
     {
       id: "linkedin_oidc",
       name: "LinkedIn",

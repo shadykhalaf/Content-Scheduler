@@ -16,7 +16,6 @@ export default function AccountsPage() {
   ];
 
   const availablePlatforms = [
-    { id: "tiktok", name: "TikTok", icon: <Video className="w-5 h-5" />, color: "bg-black text-white dark:bg-white dark:text-black" },
     { id: "linkedin", name: "LinkedIn", icon: <LinkedInIcon className="w-5 h-5" />, color: "bg-[#0A66C2] text-white" },
   ];
 
