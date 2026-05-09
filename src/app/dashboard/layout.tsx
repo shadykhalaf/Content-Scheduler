@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { Calendar, Home, PlusCircle, Settings, LogOut } from "lucide-react";
+import { Calendar, Home, PlusCircle, Settings, LogOut, FileText } from "lucide-react";
 import Link from "next/link";
 
 export default async function DashboardLayout({
@@ -17,6 +17,14 @@ export default async function DashboardLayout({
     return redirect("/login");
   }
 
+  const navLinks = [
+    { href: "/dashboard", label: "Overview", icon: Home },
+    { href: "/dashboard/schedule", label: "Create Post", icon: PlusCircle },
+    { href: "/dashboard/posts", label: "All Posts", icon: FileText },
+    { href: "/dashboard/calendar", label: "Calendar", icon: Calendar },
+    { href: "/dashboard/accounts", label: "Accounts", icon: Settings },
+  ];
+
   return (
     <div className="flex h-screen bg-[var(--color-background)] overflow-hidden">
       {/* Sidebar */}
@@ -28,38 +36,30 @@ export default async function DashboardLayout({
           <span className="text-xl font-bold tracking-tight text-[var(--color-foreground)]">Scheduler</span>
         </div>
 
-        <nav className="flex-1 p-4 space-y-2">
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md)] text-[var(--color-foreground)] hover:bg-[var(--color-secondary)] transition-colors"
-          >
-            <Home className="w-5 h-5 text-[var(--color-muted-foreground)]" />
-            <span className="font-medium">Overview</span>
-          </Link>
-          <Link
-            href="/dashboard/schedule"
-            className="flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md)] text-[var(--color-foreground)] hover:bg-[var(--color-secondary)] transition-colors"
-          >
-            <PlusCircle className="w-5 h-5 text-[var(--color-muted-foreground)]" />
-            <span className="font-medium">Create Post</span>
-          </Link>
-          <Link
-            href="/dashboard/calendar"
-            className="flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md)] text-[var(--color-foreground)] hover:bg-[var(--color-secondary)] transition-colors"
-          >
-            <Calendar className="w-5 h-5 text-[var(--color-muted-foreground)]" />
-            <span className="font-medium">Calendar</span>
-          </Link>
-          <Link
-            href="/dashboard/accounts"
-            className="flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md)] text-[var(--color-foreground)] hover:bg-[var(--color-secondary)] transition-colors"
-          >
-            <Settings className="w-5 h-5 text-[var(--color-muted-foreground)]" />
-            <span className="font-medium">Accounts</span>
-          </Link>
+        <nav className="flex-1 p-4 space-y-1">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="flex items-center gap-3 px-4 py-3 rounded-[var(--radius-md)] text-[var(--color-foreground)] hover:bg-[var(--color-secondary)] transition-colors"
+            >
+              <link.icon className="w-5 h-5 text-[var(--color-muted-foreground)]" />
+              <span className="font-medium">{link.label}</span>
+            </Link>
+          ))}
         </nav>
 
+        {/* User info */}
         <div className="p-4 border-t border-[var(--color-border)]">
+          <div className="flex items-center gap-3 px-4 py-2 mb-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+              {(user.user_metadata?.full_name || user.email || "U").charAt(0).toUpperCase()}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-medium truncate">{user.user_metadata?.full_name || "User"}</p>
+              <p className="text-xs text-[var(--color-muted-foreground)] truncate">{user.email}</p>
+            </div>
+          </div>
           <form action="/auth/signout" method="post">
             <button
               type="submit"
