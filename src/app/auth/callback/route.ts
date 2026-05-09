@@ -5,6 +5,14 @@ export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/dashboard'
+  const errorParam = searchParams.get('error')
+  const errorDescription = searchParams.get('error_description')
+
+  // If Supabase or the provider returned an error, redirect to login with the message
+  if (errorParam || errorDescription) {
+    const errorMessage = errorDescription || errorParam || 'Authentication failed'
+    return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(errorMessage)}`)
+  }
 
   if (code) {
     const supabase = await createClient()
@@ -62,6 +70,9 @@ export async function GET(request: Request) {
       }
 
       return NextResponse.redirect(`${origin}${next}`)
+    } else if (error) {
+      console.error('Supabase exchangeCodeForSession error:', error)
+      return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(error.message)}`)
     }
   }
 
